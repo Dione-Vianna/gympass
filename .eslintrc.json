@@ -1,6 +1,7 @@
 {
   "extends": ["@rocketseat/eslint-config/node"],
   "roles": {
-    "camelcasa": "off"
+    "camelcasa": "off",
+    "no-useless-constructor": "off"
   }
 }
