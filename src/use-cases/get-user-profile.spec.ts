@@ -37,8 +37,8 @@ describe('Get User Profile Use Case', async () => {
     expect(user.name).toEqual('John Doe')
   })
 
-  it('should not be able to get user profile with wrong id', () => {
-    expect(() =>
+  it('should not be able to get user profile with wrong id', async () => {
+    await expect(() =>
       sut.execute({
         userId: 'non-existing-id',
       })

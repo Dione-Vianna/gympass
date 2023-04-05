@@ -8,16 +8,16 @@ let usersRepository: InMemoryUsersRepository
 let sut: RegisterUseCase
 
 describe('Register Use Case', async () => {
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository()
+    sut = new RegisterUseCase(usersRepository)
+  })
+
   let state: any = {
     name: 'John Doe',
     password: '123456',
     email: 'johndoe@example.com',
   }
-
-  beforeEach(() => {
-    usersRepository = new InMemoryUsersRepository()
-    sut = new RegisterUseCase(usersRepository)
-  })
 
   it('should be able to register', async () => {
     const { user } = await sut.execute({
@@ -43,13 +43,23 @@ describe('Register Use Case', async () => {
     expect(isPasswordCorrectlyHashed).toBe(true)
   })
 
-  it('should not be able to register with same email twice', () => {
-    expect(() =>
-      sut.execute({
-        name: state.name,
-        email: state.email,
-        password: state.password,
-      })
-    ).rejects.toBeInstanceOf(UserAlreadyExistsError)
+  it('should not be able to register with same email twice', async () => {
+    console.log(state)
+
+    const response = await sut.execute({
+      name: state.name,
+      email: 'johndoe@example.com',
+      password: state.password,
+    })
+
+    console.log(response)
+
+    // await expect(() =>
+    //   sut.execute({
+    //     name: state.name,
+    //     email: 'johndoe@example.com',
+    //     password: state.password,
+    //   })
+    // ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
 })

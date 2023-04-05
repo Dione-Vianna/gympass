@@ -11,18 +11,18 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
+  id            String    @id @default(uuid())
   name          String
-  email         String   @unique
+  email         String    @unique
   password_hash String // Hashing 
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
-  ChekIns       ChekIn[]
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  ChekIns       CheckIn[]
 
   @@map("users")
 }
 
-model ChekIn {
+model CheckIn {
   id           String    @id @default(uuid())
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
@@ -38,13 +38,13 @@ model ChekIn {
 }
 
 model Company {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   title       String
   phone       String?
   latitude    Decimal
   longitude   Decimal
   description String?
-  ChekIns     ChekIn[]
+  ChekIns     CheckIn[]
 
   @@map("company")
 }
